@@ -278,42 +278,6 @@
             Gets the collection of yet-to-be-committed headers associated with the uncommitted events.
             </summary>
     </member>
-    <member name="T:EventStore.IAccessSnapshots">
-      <summary>
-            Indicates the ability to get or retrieve a snapshot for a given stream.
-            </summary>
-      <remarks>
-            Instances of this class must be designed to be multi-thread safe such that they can be shared between threads.
-            </remarks>
-    </member>
-    <member name="M:EventStore.IAccessSnapshots.GetSnapshot(System.Guid,System.Int32)">
-      <summary>
-            Gets the most recent snapshot which was taken on or before the revision indicated.
-            </summary>
-      <param name="streamId">The stream to be searched for a snapshot.</param>
-      <param name="maxRevision">The maximum revision possible for the desired snapshot.</param>
-      <returns>If found, it returns the snapshot; otherwise null is returned.</returns>
-      <exception cref="T:EventStore.Persistence.StorageException" />
-      <exception cref="T:EventStore.Persistence.StorageUnavailableException" />
-    </member>
-    <member name="M:EventStore.IAccessSnapshots.AddSnapshot(EventStore.Snapshot)">
-      <summary>
-            Adds the snapshot provided to the stream indicated.
-            </summary>
-      <param name="snapshot">The snapshot to save.</param>
-      <returns>If the snapshot was added, returns true; otherwise false.</returns>
-      <exception cref="T:EventStore.Persistence.StorageException" />
-      <exception cref="T:EventStore.Persistence.StorageUnavailableException" />
-    </member>
-    <member name="M:EventStore.IAccessSnapshots.GetStreamsToSnapshot(System.Int32)">
-      <summary>
-            Gets identifiers for all streams whose head and last snapshot revisions differ by at least the threshold specified.
-            </summary>
-      <param name="maxThreshold">The maximum difference between the head and most recent snapshot revisions.</param>
-      <returns>The streams for which the head and snapshot revisions differ by at least the threshold specified.</returns>
-      <exception cref="T:EventStore.Persistence.StorageException" />
-      <exception cref="T:EventStore.Persistence.StorageUnavailableException" />
-    </member>
     <member name="T:EventStore.IStoreEvents">
       <summary>
             Indicates the ability to store and retreive a stream of events.
@@ -352,14 +316,10 @@
       <exception cref="T:EventStore.Persistence.StorageException" />
       <exception cref="T:EventStore.Persistence.StorageUnavailableException" />
     </member>
-    <member name="M:EventStore.IStoreEvents.GetFrom(System.DateTime)">
+    <member name="P:EventStore.IStoreEvents.Advanced">
       <summary>
-            Gets all commits on or after from the specified starting time.
+            Gets a reference to the underlying persistence engine which allows direct access to persistence operations.
             </summary>
-      <param name="start">The point in time at which to start.</param>
-      <returns>All commits that have occurred on or after the specified starting time.</returns>
-      <exception cref="T:EventStore.Persistence.StorageException" />
-      <exception cref="T:EventStore.Persistence.StorageUnavailableException" />
     </member>
     <member name="T:EventStore.EventMessage">
       <summary>
@@ -450,6 +410,42 @@
       <summary>
             Gets the collection of event messages to be committed as a single unit.
             </summary>
+    </member>
+    <member name="T:EventStore.IAccessSnapshots">
+      <summary>
+            Indicates the ability to get or retrieve a snapshot for a given stream.
+            </summary>
+      <remarks>
+            Instances of this class must be designed to be multi-thread safe such that they can be shared between threads.
+            </remarks>
+    </member>
+    <member name="M:EventStore.IAccessSnapshots.GetSnapshot(System.Guid,System.Int32)">
+      <summary>
+            Gets the most recent snapshot which was taken on or before the revision indicated.
+            </summary>
+      <param name="streamId">The stream to be searched for a snapshot.</param>
+      <param name="maxRevision">The maximum revision possible for the desired snapshot.</param>
+      <returns>If found, it returns the snapshot; otherwise null is returned.</returns>
+      <exception cref="T:EventStore.Persistence.StorageException" />
+      <exception cref="T:EventStore.Persistence.StorageUnavailableException" />
+    </member>
+    <member name="M:EventStore.IAccessSnapshots.AddSnapshot(EventStore.Snapshot)">
+      <summary>
+            Adds the snapshot provided to the stream indicated.
+            </summary>
+      <param name="snapshot">The snapshot to save.</param>
+      <returns>If the snapshot was added, returns true; otherwise false.</returns>
+      <exception cref="T:EventStore.Persistence.StorageException" />
+      <exception cref="T:EventStore.Persistence.StorageUnavailableException" />
+    </member>
+    <member name="M:EventStore.IAccessSnapshots.GetStreamsToSnapshot(System.Int32)">
+      <summary>
+            Gets identifiers for all streams whose head and last snapshot revisions differ by at least the threshold specified.
+            </summary>
+      <param name="maxThreshold">The maximum difference between the head and most recent snapshot revisions.</param>
+      <returns>The streams for which the head and snapshot revisions differ by at least the threshold specified.</returns>
+      <exception cref="T:EventStore.Persistence.StorageException" />
+      <exception cref="T:EventStore.Persistence.StorageUnavailableException" />
     </member>
     <member name="T:EventStore.Persistence.IPersistenceFactory">
       <summary>
